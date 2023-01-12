@@ -11,11 +11,14 @@ namespace OOP_Board_Test
 
         private String _icon = "D";
 
+        private ConsoleColor _colour = ConsoleColor.DarkRed;
+
         public Dirt(int row, int col) 
         {
             this.Row = row;
             this.Col = col;
             this.Icon = _icon;
+            this.Colour = _colour;
         }
 
 

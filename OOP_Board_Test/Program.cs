@@ -6,10 +6,21 @@ internal class Program
     {
         Console.WriteLine("Hello, World!");
         
-        //Connect to Board Class
+        //Connect to relevant classes
+        Player plr = new Player();
         Board brd = new Board();
-        //Init the game board
-        brd.generateBoard();
+
+        //Initial gen for board
+        brd.initialGen(plr);
+
+        //Game loop
+        do
+        {
+            brd.generateBoard(plr); //Update terrain and player
+            plr.movement(); //Parse player on what to do next
+
+        } while (true);
+        
 
     }
 
