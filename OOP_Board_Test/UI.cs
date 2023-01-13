@@ -39,22 +39,10 @@ namespace OOP_Board_Test
             //If User has pressed the Inventory key, print it.
             if (plr.checkInventory() == true)
             {
-                printInventory(plr.Inventory);
+                
             }
         }
 
-        public void printInventory(List<String> inventory)
-        {
-            Console.WriteLine("\n    ---------Inventory---------");
-            //Counter to wordwrap inventory
-            int counter = 0;
-            foreach (String item in inventory)
-            {
-                if (counter > 4) { Console.WriteLine(); counter = 0; } //Word Wrap
-                Console.Write(item + "\t");
-                counter++;
-            }
-        }
 
         /* Dynamically prints out top border based on how many columns there are.
          */

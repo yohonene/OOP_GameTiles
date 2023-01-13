@@ -10,8 +10,8 @@ namespace OOP_Board_Test
 {
     internal class Board
     {
-        public const int MAX_ROW = 15;
-        public const int MAX_COL = 28;
+        public const int MAX_ROW = 10;
+        public const int MAX_COL = 20;
 
 
         //All tiles will be generated on this

@@ -71,7 +71,6 @@ namespace OOP_Board_Test
                         //UI checks each loop if this is true and prints inventory
                         displayInventory = true;
                     } 
-                    
                     break;
 
             }
