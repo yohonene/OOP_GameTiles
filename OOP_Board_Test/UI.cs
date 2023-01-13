@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,13 +19,27 @@ namespace OOP_Board_Test
             Console.WriteLine("\n HP: " + plr.HP);
         }
 
+        /* Dynamically prints out top border based on how many columns there are.
+         */
         public void topBorder()
         {
-            Console.Write("╔════════════════════╗");
+            Board board = new Board();
+            int[] prms = board.boardParams();
+            int cols = prms[1];
+            String c = new string('═', cols);
+            Console.Write($"╔═{c}═╗");
         }
+
+
+        /* Dynamically prints out bottom border based on how many columns there are.
+         */
         public void bottomBorder() 
         {
-            Console.Write("╚════════════════════╝");
+            Board board = new Board();
+            int[] prms = board.boardParams();
+            int cols = prms[1];
+            String c = new string('═', cols);
+            Console.Write($"╚═{c}═╝");
         }
         public bool leftBorder(bool border_left) {
             if (border_left == false) 
