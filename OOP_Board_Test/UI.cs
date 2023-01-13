@@ -16,7 +16,9 @@ namespace OOP_Board_Test
         public void printUI(Player plr)
         {
             //Print UI elements after board has been printed
-            Console.WriteLine("\n HP: " + plr.HP);
+            String HealthText = "HP:" + plr.HP;
+            //Wrap element in Border
+            UIborder(HealthText);
         }
 
         /* Dynamically prints out top border based on how many columns there are.
@@ -59,5 +61,19 @@ namespace OOP_Board_Test
                 Console.WriteLine(); // New Line
             }
         }
+
+        /* Dynamically wraps text around with border based on text size
+         */ 
+        private void UIborder(String text)
+        {
+            //Find text length and optimize border to match
+            int l = text.Length;
+            //Create new string with size dictated by l
+            String c = new String('─', l);
+            Console.WriteLine($"\n┌{c}┐");
+            Console.Write("│" + text + "│");
+            Console.Write($"\n└{c}┘");
+        }
+
     }
 }
