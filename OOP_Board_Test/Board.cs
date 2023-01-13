@@ -42,6 +42,8 @@ namespace OOP_Board_Test
          */
         public void generateBoard(Player plr)
         {
+            //UI class will print elements outside of border
+            UI ui = new UI();
             //Clear to make screen cleaner
             Console.Clear();
             //Replace previous player object position with old tile (if moved)
@@ -49,15 +51,33 @@ namespace OOP_Board_Test
             //Replace tile object with player obj to be drawn
             placePlayer(plr);
 
-            //If player has moved put back tile
+            //Top of Border
+            ui.topBorder();
 
-            int count = -1; //This will allow the list to print out all tiles.
+            //This will allow the list to print out all tiles and not exceed array size.
+            int count = -1; 
+
+            //Bools to check if border has been printed
+            bool border_right = true;
+            bool border_left;
+
             for (int x = 0; x < board.Last().Row; x++) //Last entry will have the largest column or row
             {
-                Console.WriteLine(); //New Line
+                //Reset border_left bool so that it can be printed once per row
+                border_left = false;
+                //Right border must ignore being printed ONCE
+                ui.rightBorder(border_right);
+
                 count++;
                 for (int y = 0; y < board.Last().Col; y++) 
                 {
+                    //Left side of border
+                    if (ui.leftBorder(border_left))
+                    {
+                        border_right = false;
+                        border_left = true;
+                    }
+                   
                     //Set tile colour to whatever is specified
                     Console.ForegroundColor = board[count].Colour;
                     //Print tile's icon
@@ -65,10 +85,14 @@ namespace OOP_Board_Test
                     count++;
                 }
             }
+            //Finish printing rest of border (otherwise there is a gap)
+            ui.rightBorder(border_right);
+            ui.bottomBorder();
+
+            //Reset text colours
             Console.ForegroundColor = ConsoleColor.Gray;
 
-            //Print UI elements after board has been updated
-            UI ui = new UI();
+            //Print Extra UI elements after board has been updated
             ui.printUI(plr);
 
 
