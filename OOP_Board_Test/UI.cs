@@ -15,7 +15,6 @@ namespace OOP_Board_Test
         private String border_text { get; set; }
         private String name { get; set; }
 
-
         public UI() { }
 
         public UI(string brd_text, string text)
@@ -36,6 +35,25 @@ namespace OOP_Board_Test
             //Draw Event String underneath these elements
             String[] EventStrings = { plr.interactText };
             UItextBorder(EventStrings);
+
+            //If User has pressed the Inventory key, print it.
+            if (plr.checkInventory() == true)
+            {
+                printInventory(plr.Inventory);
+            }
+        }
+
+        public void printInventory(List<String> inventory)
+        {
+            Console.WriteLine("\n    ---------Inventory---------");
+            //Counter to wordwrap inventory
+            int counter = 0;
+            foreach (String item in inventory)
+            {
+                if (counter > 4) { Console.WriteLine(); counter = 0; } //Word Wrap
+                Console.Write(item + "\t");
+                counter++;
+            }
         }
 
         /* Dynamically prints out top border based on how many columns there are.
@@ -48,7 +66,6 @@ namespace OOP_Board_Test
             String c = new string('═', cols);
             Console.Write($"╔═{c}═╗");
         }
-
 
         /* Dynamically prints out bottom border based on how many columns there are.
          */

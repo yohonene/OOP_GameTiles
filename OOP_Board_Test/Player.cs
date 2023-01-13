@@ -15,9 +15,12 @@ namespace OOP_Board_Test
         private String _icon = "■";
         private ConsoleColor _colour = ConsoleColor.Green;
         private int delta = 1;
-        public Tile standingOn { get; set; }
+        private bool displayInventory { get; set; }
         public int HP;
+        public Tile standingOn { get; set; }
         public String interactText { get; set; }
+
+        public List<String> Inventory = new List<String>();
 
         public Player()
         {
@@ -61,7 +64,26 @@ namespace OOP_Board_Test
                 case ConsoleKey.Enter: //Interacts with Tile below character.
                     Interact();
                     break;
+                case ConsoleKey.I: //Inventory
+                    if (displayInventory == true) {  displayInventory = false; } //Turn off if pressed again
+                    else
+                    {
+                        //UI checks each loop if this is true and prints inventory
+                        displayInventory = true;
+                    } 
+                    
+                    break;
 
+            }
+        }
+        public bool checkInventory()
+        {
+            if (displayInventory == true)
+            {
+                return true;
+            } else
+            {
+                return false;
             }
         }
 
@@ -76,10 +98,14 @@ namespace OOP_Board_Test
                 this.interactText = "You Mine Iron";
                 this.standingOn = dirt_tile;
                 brd.changeOldTile(this); //Changes Tile to a specified tile (Default is Dirt)
-            } else
+                //Add Item to Inventory
+                Inventory.Add("Iron");
+            }
+            else
             {
                 this.interactText = null;
             }
+
         }
 
         /* Handles starting positon gen of character

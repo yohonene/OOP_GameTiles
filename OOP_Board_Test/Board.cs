@@ -137,6 +137,7 @@ namespace OOP_Board_Test
         public void changeOldTile(Player plr, String tile = "Dirt")
         {
             old_tile[0] = plr.standingOn;
+     
         }
 
         private void placeOldTile(Player plr)
