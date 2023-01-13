@@ -9,6 +9,9 @@ internal class Program
         Player plr = new Player();
         Board brd = new Board();
 
+        //Hides blinking underscore
+        Console.CursorVisible = false;
+
         //Initial gen for board
         brd.initialGen(plr);
 

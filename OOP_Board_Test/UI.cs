@@ -11,14 +11,28 @@ namespace OOP_Board_Test
     internal class UI
     {
 
+        private String border_text { get; set; }
+        private String name { get; set; }
+
+
         public UI() { }
 
+        public UI(string brd_text, string text)
+        {
+            this.border_text = brd_text;
+            this.name = text;
+        }
+
+        //Publically accesible method that allows other methods to print important values onto the screen
         public void printUI(Player plr)
         {
             //Print UI elements after board has been printed
             String HealthText = "HP:" + plr.HP;
-            //Wrap element in Border
-            UIborder(HealthText);
+            String Test = "Test";
+            String Yomama = "hii:3333333";
+            String[] UIStrings = { HealthText, Test, Yomama };
+            //Wrap elements in Border
+            UItextBorder(UIStrings);
         }
 
         /* Dynamically prints out top border based on how many columns there are.
@@ -62,17 +76,54 @@ namespace OOP_Board_Test
             }
         }
 
-        /* Dynamically wraps text around with border based on text size
-         */ 
-        private void UIborder(String text)
+        /* Creates objects for UI class and returns them in a list.
+         */
+        private List<UI> UIobjectCreation(String[] text)
         {
-            //Find text length and optimize border to match
-            int l = text.Length;
-            //Create new string with size dictated by l
-            String c = new String('─', l);
-            Console.WriteLine($"\n┌{c}┐");
-            Console.Write("│" + text + "│");
-            Console.Write($"\n└{c}┘");
+            //List TO hold objects that will be sent to next method
+            List<UI> uiOBJS = new List<UI>();
+
+            foreach (String t in text)
+            {
+                //Find text length and optimize border to match
+                int l = t.Length;
+                //Create new string with size dictated by l
+                String c = new String('─', l);
+                //Create UI object to store values
+                UI uiBOX = new UI(c, t);
+                uiOBJS.Add(uiBOX);
+            }
+            return uiOBJS;
+        }
+
+        /* Wraps UI object in border with its corresponding text
+         */
+        private void UItextBorder(String[] strings)
+        {
+            //Retrieve list from method
+            List<UI> objects = UIobjectCreation(strings);
+
+            Console.WriteLine(); //New Line to avoid overlap
+
+            //Print top layer of border for all elements
+            foreach (UI o in objects)
+            {
+                Console.Write($"┌{o.border_text}┐"); //Print border top to match
+            }
+            //Space to place middle section
+            Console.WriteLine();
+            //Print middle section containg important text
+            foreach (UI o in objects)
+            {
+                Console.Write("│" + o.name + "│");
+            }
+            Console.WriteLine();
+            //Print bottom section
+            foreach (UI o in objects)
+            {
+                Console.Write($"└{o.border_text}┘"); 
+            }    
+                        
         }
 
     }

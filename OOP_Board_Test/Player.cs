@@ -35,7 +35,7 @@ namespace OOP_Board_Test
 
 
             ConsoleKeyInfo key;
-            key = Console.ReadKey();
+            key = Console.ReadKey(true);
 
             //Corresponding keys move delta in 4 possible directions
             //If potential movement exceeds board limits, will be ignored
