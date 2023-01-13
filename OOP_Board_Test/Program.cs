@@ -4,8 +4,10 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        
+
+
         //Connect to relevant classes
+        UI ui = new UI();
         Player plr = new Player();
         Board brd = new Board();
 
@@ -19,6 +21,7 @@ internal class Program
         do
         {
             brd.generateBoard(plr); //Update terrain and player
+            ui.printUI(plr); //Print Extra UI features
             plr.movement(); //Parse player on what to do next
 
         } while (true);

@@ -10,10 +10,13 @@ namespace OOP_Board_Test
     public class Tile
     {
         private String _icon = "T";
+        private String name = "Tile";
         public String Icon { get => _icon; set{ _icon = value;} }
+        public String Name { get => name; set { name = value; } }
 
         private int row;
         private int col;
+        
 
         public int Row
         {
@@ -45,7 +48,7 @@ namespace OOP_Board_Test
          */
         public override string ToString()
         {
-            return "Row: " + Row + " Column: " + Col;
+            return name;
         }
 
         /* Returns icon

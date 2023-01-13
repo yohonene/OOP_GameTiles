@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using OOP_Board_Test.Tiles;
 
 namespace OOP_Board_Test
 {
@@ -11,6 +12,7 @@ namespace OOP_Board_Test
     {
         public const int MAX_ROW = 15;
         public const int MAX_COL = 28;
+
 
         //All tiles will be generated on this
         private List<Tile> board = new List<Tile>();
@@ -35,7 +37,7 @@ namespace OOP_Board_Test
             board = coordTileCouple();
 
             //Coordinates stored in plr object
-            plr.startPosition();
+            plr.startPosition(this);
         }
 
         /* Generates a board if given appropriate tile list.
@@ -92,15 +94,15 @@ namespace OOP_Board_Test
             //Reset text colours
             Console.ForegroundColor = ConsoleColor.Gray;
 
-            //Print Extra UI elements after board has been updated
-            ui.printUI(plr);
 
 
         }
+        /* Generates list of tiles with matching coordinates
+         * Randomly generates unique terrain
+         */
         private List<Tile> coordTileCouple()
         {
             //Make list of tiles to simulate board
-
             for (int x = 0; x < MAX_ROW + 1; x++)
             {
                 for (int y = 0; y < MAX_COL + 1; y++)
@@ -109,11 +111,16 @@ namespace OOP_Board_Test
 
                     double val = ran.NextDouble();
 
-                    if (val > 0.3)
+                    if (val > 0.96)
+                    {
+                        Iron iron_tile = new Iron(x, y);
+                        board.Add(iron_tile);
+                    }
+                    else if (val > 0.3)
                     {
                         Grass grass_tile = new Grass(x, y);
                         board.Add(grass_tile);
-                    }
+                    } 
                     else
                     {
                         Dirt dirt_tile = new Dirt(x, y);
@@ -124,10 +131,19 @@ namespace OOP_Board_Test
             return board;
         }
 
+        /* Changes Old_Tile to another, Default Dirt
+         * Called from Player class when it interacts with an object.
+         */
+        public void changeOldTile(Player plr, String tile = "Dirt")
+        {
+            old_tile[0] = plr.standingOn;
+        }
+
         private void placeOldTile(Player plr)
         {
             int index_spotTaken = board.IndexOf(plr);
             board[index_spotTaken] = old_tile[0];
+            
         }
 
         /* After terrain has been drawn, player will be placed.
@@ -138,7 +154,10 @@ namespace OOP_Board_Test
             int player_col = plr.Col;
             //Replace object which shares same coordinates as object - Sets old_tile list
                 //Note: Creates an IEnumerable object if not converted to a list
-            old_tile = board.Where(i => i.Row == player_row && i.Col == player_col).ToList(); 
+            old_tile = board.Where(i => i.Row == player_row && i.Col == player_col).ToList();
+            //Record what tile was stepped on and update Player object to store it (For UI)
+            
+            plr.standingOn = old_tile[0];
             //First object (only object) in list has index stored
             int index_OldTile = board.IndexOf(old_tile.First());
             board[index_OldTile] = plr; 

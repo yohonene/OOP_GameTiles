@@ -4,20 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OOP_Board_Test
+namespace OOP_Board_Test.Tiles
 {
     internal class Grass : Tile
     {
-        private String _icon = "░";
+        private string _icon = "░";
         private ConsoleColor _colour = ConsoleColor.DarkGreen;
+        private String name = "Grass";
 
 
         public Grass(int row, int col)
         {
-            this.Row = row;
-            this.Col = col;
-            this.Icon = _icon;
-            this.Colour = _colour;
+            Row = row;
+            Col = col;
+            Icon = _icon;
+            Colour = _colour;
+            Name = name;
         }
 
     }

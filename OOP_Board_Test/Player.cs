@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OOP_Board_Test.Tiles;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -9,26 +10,30 @@ namespace OOP_Board_Test
 {
     internal class Player : Tile
     {
-        private String _icon = "■";
+        private Board brd;
 
+        private String _icon = "■";
         private ConsoleColor _colour = ConsoleColor.Green;
         private int delta = 1;
+        public Tile standingOn { get; set; }
         public int HP;
+        public String interactText { get; set; }
 
         public Player()
         {
             this.Icon = _icon;
             this.Colour = _colour;
+            this.standingOn = null;
             HP = 10;
         }
 
-        /* Method to handle player movement via arrow keys. 
+        /* Method to handle player movement via arrow keys.
+         * If Enter is pressed, Interact() method is called.
          */
 
         public void movement()
         {
-            //Board class connection and important maximum params
-            Board brd = new Board();
+            //Important maximum params
             int[] limits = brd.boardParams();
             int MAX_ROW = limits[0];
             int MAX_COL = limits[1];
@@ -53,16 +58,36 @@ namespace OOP_Board_Test
                 case ConsoleKey.LeftArrow:
                     if (this.Col > 0) { this.Col -= delta; }
                     break;
+                case ConsoleKey.Enter: //Interacts with Tile below character.
+                    Interact();
+                    break;
 
+            }
+        }
+
+        /* Interacts with tile, Enter Key; UI prints out if interact is sucessfull.
+         */
+        public void Interact()
+        {
+            if(this.standingOn.Name == "Iron")
+            {
+                //When Iron is mined, will be changed to DIRT tile.
+                Dirt dirt_tile = new Dirt(this.Row, this.Col);
+                this.interactText = "You Mine Iron";
+                this.standingOn = dirt_tile;
+                brd.changeOldTile(this); //Changes Tile to a specified tile (Default is Dirt)
+            } else
+            {
+                this.interactText = null;
             }
         }
 
         /* Handles starting positon gen of character
          */ 
-        public Player startPosition()
+        public Player startPosition(Board board)
         {
-            //Acquire board size so player can be accurately placed
-            Board brd = new Board();
+            //Update Player Board Variable so every method can access.
+            brd = board;
             int[] board_size = brd.boardParams();
             this.Row = board_size[0] / 2;
             this.Col = board_size[1] / 2;
