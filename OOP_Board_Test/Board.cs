@@ -67,6 +67,10 @@ namespace OOP_Board_Test
             }
             Console.ForegroundColor = ConsoleColor.Gray;
 
+            //Print UI elements after board has been updated
+            UI ui = new UI();
+            ui.printUI(plr);
+
 
         }
         private List<Tile> coordTileCouple()
@@ -81,7 +85,7 @@ namespace OOP_Board_Test
 
                     double val = ran.NextDouble();
 
-                    if (val > 0.5)
+                    if (val > 0.3)
                     {
                         Grass grass_tile = new Grass(x, y);
                         board.Add(grass_tile);

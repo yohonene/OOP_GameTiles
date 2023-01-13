@@ -4,7 +4,6 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        Console.WriteLine("Hello, World!");
         
         //Connect to relevant classes
         Player plr = new Player();

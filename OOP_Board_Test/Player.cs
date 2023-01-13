@@ -9,15 +9,17 @@ namespace OOP_Board_Test
 {
     internal class Player : Tile
     {
-        private String _icon = "X";
+        private String _icon = "■";
 
         private ConsoleColor _colour = ConsoleColor.Green;
         private int delta = 1;
+        public int HP;
 
         public Player()
         {
             this.Icon = _icon;
             this.Colour = _colour;
+            HP = 10;
         }
 
         /* Method to handle player movement via arrow keys. 

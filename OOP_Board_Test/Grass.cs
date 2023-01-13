@@ -8,7 +8,7 @@ namespace OOP_Board_Test
 {
     internal class Grass : Tile
     {
-        private String _icon = "G";
+        private String _icon = "░";
         private ConsoleColor _colour = ConsoleColor.DarkGreen;
 
 

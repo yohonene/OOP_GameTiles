@@ -9,7 +9,7 @@ namespace OOP_Board_Test
     internal class Dirt : Tile
     {
 
-        private String _icon = "D";
+        private String _icon = "▒";
 
         private ConsoleColor _colour = ConsoleColor.DarkRed;
 
