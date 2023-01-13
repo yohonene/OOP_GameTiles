@@ -24,8 +24,8 @@ internal class Program
             if (plr.checkInventory() == true) //Draw inventory instead of board
             {
                 Console.Clear();
-                cui.printCraftingUI(plr.Inventory); //Exit out if 'I' key
-                plr.movement();
+                List<String> recipes = cui.printCraftingUI(plr.Inventory); //Exit out if 'I' key
+                plr.craftingMovement(recipes); //Send recipe list to player
             }
             else
             {

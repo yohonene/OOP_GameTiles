@@ -1,10 +1,12 @@
 ﻿using OOP_Board_Test.Tiles;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace OOP_Board_Test
 {
@@ -19,6 +21,7 @@ namespace OOP_Board_Test
         public int HP;
         public Tile standingOn { get; set; }
         public String interactText { get; set; }
+        private int count = -1;
 
         public List<String> Inventory = new List<String>();
 
@@ -45,6 +48,7 @@ namespace OOP_Board_Test
             ConsoleKeyInfo key;
             key = Console.ReadKey(true);
 
+
             //Corresponding keys move delta in 4 possible directions
             //If potential movement exceeds board limits, will be ignored
             switch(key.Key)
@@ -65,16 +69,56 @@ namespace OOP_Board_Test
                     Interact();
                     break;
                 case ConsoleKey.I: //Inventory
-                    if (displayInventory == true) {  displayInventory = false; } //Turn off if pressed again
-                    else
-                    {
-                        //UI checks each loop if this is true and prints inventory
-                        displayInventory = true;
-                    } 
+                    displayInventory = true; 
                     break;
 
             }
         }
+        /* Disables overworld movement, allows user to move around in Crafting UI
+         */
+        public void craftingMovement(List<String> recipes)
+        {
+            ConsoleKeyInfo key;
+            key = Console.ReadKey(true);
+
+
+            switch (key.Key)
+            {
+                case ConsoleKey.I: 
+                     //UI checks each loop if this is true and prints inventory
+                    displayInventory = false;
+                    break;
+
+                case ConsoleKey.RightArrow:
+                    count++;
+                    int max_size = recipes.Count();
+                    if (count == max_size) { count = 0; recipes[max_size-1] = recipes.Last().Remove(0, 1);  } //Remove indicator from last item
+                    Debug.WriteLine(count);
+                    if (count < max_size) //This cycles through the recipe list, adding a > to indicate what is selected
+                    {
+                        //Add indicator to new element
+                        addIndicator(recipes, count);
+                        //Remove indicator from previous value
+                        if (count > 0){recipes[count - 1] = recipes[count-1].Remove(0, 1);}
+                    }
+                    break;
+                case ConsoleKey.Enter:
+                    //Add Item to inventory and remove indicator
+                    String item = recipes[count].Remove(0, 1);
+                    Inventory.Add(item);
+                    break;
+            }
+
+        }
+        /*Helps clean up code, adds indicator to first position of string
+         */ 
+        private void addIndicator(List<String> recipes, int count)
+        {
+            String original_string = recipes[count];
+            String new_string = ">" + original_string;
+            recipes[count] = new_string;
+        }
+
         public bool checkInventory()
         {
             if (displayInventory == true)

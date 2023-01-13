@@ -44,6 +44,7 @@ namespace OOP_Board_Test
         }
 
 
+
         /* Dynamically prints out top border based on how many columns there are.
          */
         public void topBorder()
