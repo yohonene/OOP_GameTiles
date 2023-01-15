@@ -64,7 +64,18 @@ namespace OOP_Board_Test
             var result = inv.FindAll(e => e.Name == recipe_item.Requirement);
             int amnt = result.Count();
             //Return true if player has equal to or more than required amount of items
-            if (amnt >= recipe_item.Amount) { return true; } else { return false; }
+            if (amnt >= recipe_item.Amount) 
+            {
+                //Remove objects consumed to craft
+                foreach(Items item in result)
+                {
+                    inv.Remove(item);
+                }
+                return true; 
+            } else 
+            { 
+                return false; 
+            }
         }
     }
 }

@@ -110,7 +110,7 @@ namespace OOP_Board_Test
                         //Add Item to inventory and remove indicator
                         String item = recipes[count].Name.Remove(0, 1);
                         Crafted_Item item_obj = new(item);
-                        Inventory.Add(item_obj); 
+                        Inventory.Add(item_obj);
                     } 
                     else
                     {
