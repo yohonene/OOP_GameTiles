@@ -115,6 +115,10 @@ namespace OOP_Board_Test
                     {
                         Iron iron_tile = new Iron(x, y);
                         board.Add(iron_tile);
+                    } else if (val > 0.86 && val < 0.96)
+                    {
+                        Stick stick_tile = new Stick(x, y);
+                        board.Add(stick_tile);
                     }
                     else if (val > 0.3)
                     {

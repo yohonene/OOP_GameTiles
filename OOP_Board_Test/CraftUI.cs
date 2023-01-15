@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OOP_Board_Test
+namespace OOP_Board_Test 
 {
     internal class CraftUI
     {

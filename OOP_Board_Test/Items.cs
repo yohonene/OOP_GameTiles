@@ -16,6 +16,7 @@ namespace OOP_Board_Test
     {
 
         private String _name = "Item";
+        public String interact_text = "You....";
         public String Name { get => _name; set { _name = value; } }
 
         public void Craft()
@@ -32,13 +33,23 @@ namespace OOP_Board_Test
     public class Iron_Ore : Items
     {
         private String _name = "Iron";
-        public Iron_Ore() { Name = _name; }
+        public String interact_text;
+        public Iron_Ore() { Name = _name; interact_text = "You mine Iron"; }
+    }
+
+    public class Item_Stick : Items
+    {
+        private String _name = "Stick";
+        public String interact_text;
+
+        public Item_Stick() { Name = _name; interact_text = "You pickup a stick";  }
     }
 
     public class Crafted_Item : Items
     {
         public String Requirement { get; set; }
         public int Amount { get; set; }
+
 
         public Crafted_Item(String name)
         {

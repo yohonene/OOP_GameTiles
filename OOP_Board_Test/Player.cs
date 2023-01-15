@@ -150,16 +150,25 @@ namespace OOP_Board_Test
          */
         public void Interact()
         {
-            if(this.standingOn.Name == "Iron")
+            Dirt dirt_tile = new Dirt(this.Row, this.Col);
+
+
+            if (this.standingOn.Name == "Iron")
             {
                 //When Iron is mined, will be changed to DIRT tile.
-                Dirt dirt_tile = new Dirt(this.Row, this.Col);
-                this.interactText = "You Mine Iron";
                 this.standingOn = dirt_tile;
                 brd.changeOldTile(this); //Changes Tile to a specified tile (Default is Dirt)
                 //Add Item to Inventory
                 Iron_Ore iron = new Iron_Ore();
+                this.interactText = iron.interact_text;
                 Inventory.Add(iron);
+            } else if (this.standingOn.Name == "Stick")
+            {
+                this.standingOn = dirt_tile;
+                brd.changeOldTile(this);
+                Item_Stick stick = new Item_Stick();
+                this.interactText = stick.interact_text;
+                Inventory.Add(stick);
             }
             else
             {
