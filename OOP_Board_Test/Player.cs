@@ -76,10 +76,12 @@ namespace OOP_Board_Test
         }
         /* Disables overworld movement, allows user to move around in Crafting UI
          */
-        public void craftingMovement(List<Items> recipes)
+        public void craftingMovement(List<Items> recipes, CraftUI cui)
         {
             ConsoleKeyInfo key;
             key = Console.ReadKey(true);
+            //Clear event text
+            cui.eventText = null;
 
 
             switch (key.Key)
@@ -111,12 +113,14 @@ namespace OOP_Board_Test
                         String item = recipes[count].Name.Remove(0, 1);
                         Crafted_Item item_obj = new(item);
                         Inventory.Add(item_obj);
-                    } 
-                    else
+                        //Set error text for to success
+                        cui.eventText = $"{item} crafted.";
+                        cui.eventColour= ConsoleColor.Green;
+                    } else
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Insufficient Ingredients");
-                        Console.ResetColor();
+                        //Update error text for CraftingUI
+                        cui.eventText = "Insufficient Materials";
+                        cui.eventColour = ConsoleColor.Red;
                     }
                     break;
             }

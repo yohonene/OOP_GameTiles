@@ -17,11 +17,16 @@ namespace OOP_Board_Test
         }
         private List<Items> recipies = new List<Items>();
         private String selectedItem;
+        public String eventText { get; set; }
+        public ConsoleColor eventColour { get; set; }
 
         public List<Items> printCraftingUI(List<Items> inventory)
         {
             printCrafting();
             printInventory(inventory);
+            UI ui = new UI();
+            String[] EventStrings = { eventText };
+            ui.UItextBorder(EventStrings, eventColour);
             return recipies;
         }
 
@@ -72,8 +77,9 @@ namespace OOP_Board_Test
                     inv.Remove(item);
                 }
                 return true; 
-            } else 
-            { 
+            } 
+            else 
+            {
                 return false; 
             }
         }

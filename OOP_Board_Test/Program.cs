@@ -25,7 +25,7 @@ internal class Program
             {
                 Console.Clear();
                 List<Items> recipes = cui.printCraftingUI(plr.Inventory); //Exit out if 'I' key
-                plr.craftingMovement(recipes); //Send recipe list to player
+                plr.craftingMovement(recipes, cui); //Send recipe list to player
             }
             else
             {

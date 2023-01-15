@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
@@ -111,13 +112,15 @@ namespace OOP_Board_Test
         }
 
         /* Wraps UI object in border with its corresponding text
+         * Has optional colour property
          */
-        private void UItextBorder(String[] strings)
+        public void UItextBorder(String[] strings, ConsoleColor colour = ConsoleColor.Gray)
         {
             //Retrieve list from method
             List<UI> objects = UIobjectCreation(strings);
 
             Console.WriteLine(); //New Line to avoid overlap
+            Console.ForegroundColor = colour;
 
             //Print top layer of border for all elements
             foreach (UI o in objects)
@@ -136,7 +139,8 @@ namespace OOP_Board_Test
             foreach (UI o in objects)
             {
                 Console.Write($"└{o.border_text}┘"); 
-            }    
+            }
+            Console.ResetColor();
                         
         }
 
