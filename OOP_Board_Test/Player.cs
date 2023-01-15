@@ -23,7 +23,7 @@ namespace OOP_Board_Test
         public String interactText { get; set; }
         private int count = -1;
 
-        public List<String> Inventory = new List<String>();
+        public List<Items> Inventory = new List<Items>();
 
         public Player()
         {
@@ -76,7 +76,7 @@ namespace OOP_Board_Test
         }
         /* Disables overworld movement, allows user to move around in Crafting UI
          */
-        public void craftingMovement(List<String> recipes)
+        public void craftingMovement(List<Items> recipes)
         {
             ConsoleKeyInfo key;
             key = Console.ReadKey(true);
@@ -92,31 +92,43 @@ namespace OOP_Board_Test
                 case ConsoleKey.RightArrow:
                     count++;
                     int max_size = recipes.Count();
-                    if (count == max_size) { count = 0; recipes[max_size-1] = recipes.Last().Remove(0, 1);  } //Remove indicator from last item
+                    if (count == max_size) { count = 0; recipes[max_size-1].Name = recipes.Last().Name.Remove(0, 1);  } //Remove indicator from last item
                     Debug.WriteLine(count);
                     if (count < max_size) //This cycles through the recipe list, adding a > to indicate what is selected
                     {
                         //Add indicator to new element
                         addIndicator(recipes, count);
                         //Remove indicator from previous value
-                        if (count > 0){recipes[count - 1] = recipes[count-1].Remove(0, 1);}
+                        if (count > 0){recipes[count - 1].Name = recipes[count-1].Name.Remove(0, 1);}
                     }
                     break;
                 case ConsoleKey.Enter:
-                    //Add Item to inventory and remove indicator
-                    String item = recipes[count].Remove(0, 1);
-                    Inventory.Add(item);
+                    CraftUI crafting = new CraftUI();
+                    var casted_item = (Crafted_Item)recipes[count]; //Cast item to become crafted_item
+                    if (crafting.checkIfCraftable(Inventory, casted_item))  //If user has required items to craft add to inventory
+                    {
+                        //Add Item to inventory and remove indicator
+                        String item = recipes[count].Name.Remove(0, 1);
+                        Crafted_Item item_obj = new(item);
+                        Inventory.Add(item_obj); 
+                    } 
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Insufficient Ingredients");
+                        Console.ResetColor();
+                    }
                     break;
             }
 
         }
         /*Helps clean up code, adds indicator to first position of string
          */ 
-        private void addIndicator(List<String> recipes, int count)
+        private void addIndicator(List<Items> recipes, int count)
         {
-            String original_string = recipes[count];
+            String original_string = recipes[count].Name;
             String new_string = ">" + original_string;
-            recipes[count] = new_string;
+            recipes[count].Name = new_string;
         }
 
         public bool checkInventory()
@@ -142,7 +154,8 @@ namespace OOP_Board_Test
                 this.standingOn = dirt_tile;
                 brd.changeOldTile(this); //Changes Tile to a specified tile (Default is Dirt)
                 //Add Item to Inventory
-                Inventory.Add("Iron");
+                Iron_Ore iron = new Iron_Ore();
+                Inventory.Add(iron);
             }
             else
             {

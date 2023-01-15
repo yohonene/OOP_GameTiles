@@ -10,14 +10,15 @@ namespace OOP_Board_Test
     {
         public CraftUI()
         {
-            recipies.Add("Shovel");
-            recipies.Add("Pan");
-            recipies.Add("Axe");
+            recipies.Add(new Crafted_Item("Shovel", "Iron", 2));
+            recipies.Add(new Crafted_Item("Axe", "Iron", 5));
+            recipies.Add(new Crafted_Item("Sword", "Iron", 8));
+            recipies.Add(new Crafted_Item("Hoe", "Iron", 9));
         }
-        private List<String> recipies = new List<String>();
+        private List<Items> recipies = new List<Items>();
         private String selectedItem;
 
-        public List<String> printCraftingUI(List<String> inventory)
+        public List<Items> printCraftingUI(List<Items> inventory)
         {
             printCrafting();
             printInventory(inventory);
@@ -35,7 +36,7 @@ namespace OOP_Board_Test
 
         /* Prints out the inventory
         */
-        private void printInventory(List<String> inventory)
+        private void printInventory(List<Items> inventory)
         {
             Console.WriteLine("\n    ---------Inventory---------");          
             printList(inventory, "►");
@@ -44,15 +45,26 @@ namespace OOP_Board_Test
 
         /* Prints a given list, user can supply marker to be placed before text if needed
          */
-        private void printList(List<String> inventory, String optional_marker = "")
+        private void printList(List<Items> inventory, String optional_marker = "")
         {
             int counter = 0;
-            foreach (String item in inventory)
+            foreach (Items item in inventory)
             {
                 if (counter > 4) { Console.WriteLine(); counter = 0; } //Word Wrap
                 Console.Write(optional_marker + item + "\t");
                 counter++;
             }
+        }
+
+        /* Checks if a item can be crafted given a player inventory
+         */
+        public bool checkIfCraftable(List<Items> inv, Crafted_Item recipe_item)
+        {
+            //Lambda expression, find all objects in inventory holding this objects name
+            var result = inv.FindAll(e => e.Name == recipe_item.Requirement);
+            int amnt = result.Count();
+            //Return true if player has equal to or more than required amount of items
+            if (amnt >= recipe_item.Amount) { return true; } else { return false; }
         }
     }
 }
