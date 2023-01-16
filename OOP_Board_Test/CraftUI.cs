@@ -10,7 +10,7 @@ namespace OOP_Board_Test
     {
         public CraftUI()
         {
-            recipies.Add(new Crafted_Item("Shovel", "Iron", 2));
+            recipies.Add(new Crafted_Item("Pickaxe", "Stick", 3));
             recipies.Add(new Crafted_Item("Axe", "Iron", 5));
             recipies.Add(new Crafted_Item("Sword", "Iron", 8));
             recipies.Add(new Crafted_Item("Hoe", "Iron", 9));
@@ -20,10 +20,11 @@ namespace OOP_Board_Test
         public String eventText { get; set; }
         public ConsoleColor eventColour { get; set; }
 
-        public List<Items> printCraftingUI(List<Items> inventory)
+        public List<Items> printCraftingUI(List<Items> inventory, List<Items> tools)
         {
             printCrafting();
             printInventory(inventory);
+            printInventory(tools, "Tools");
             UI ui = new UI();
             String[] EventStrings = { eventText };
             ui.UItextBorder(EventStrings, eventColour);
@@ -41,9 +42,9 @@ namespace OOP_Board_Test
 
         /* Prints out the inventory
         */
-        private void printInventory(List<Items> inventory)
+        private void printInventory(List<Items> inventory, String opt_text = "Inventory")
         {
-            Console.WriteLine("\n    ---------Inventory---------");          
+            Console.WriteLine($"\n    ---------{opt_text}---------");          
             printList(inventory, "►");
 
         }

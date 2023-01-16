@@ -30,7 +30,8 @@ namespace OOP_Board_Test
             //Print UI elements after board has been printed
             String HealthText = "HP:" + plr.HP;
             String CurrentTileText = plr.standingOn.ToString();
-            String[] UIStrings = { HealthText, CurrentTileText};
+            String CurrentToolText = plr.holdingItem;
+            String[] UIStrings = { HealthText, CurrentTileText, CurrentToolText};
             //Wrap elements in Border
             UItextBorder(UIStrings);
             //Draw Event String underneath these elements

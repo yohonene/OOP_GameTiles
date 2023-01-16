@@ -10,8 +10,8 @@ namespace OOP_Board_Test
 {
     internal class Board
     {
-        public const int MAX_ROW = 10;
-        public const int MAX_COL = 20;
+        public const int MAX_ROW = 15;
+        public const int MAX_COL = 28;
 
 
         //All tiles will be generated on this
@@ -115,10 +115,13 @@ namespace OOP_Board_Test
                     {
                         Iron iron_tile = new Iron(x, y);
                         board.Add(iron_tile);
-                    } else if (val > 0.86 && val < 0.96)
+                    } else if (val > 0.89 && val < 0.96)
                     {
                         Stick stick_tile = new Stick(x, y);
                         board.Add(stick_tile);
+                    } else if (val > 0.4 && val < 0.44) {
+                        Tree tree_tile = new Tree(x, y);
+                        board.Add(tree_tile);
                     }
                     else if (val > 0.3)
                     {

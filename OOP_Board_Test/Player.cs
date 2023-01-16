@@ -21,15 +21,18 @@ namespace OOP_Board_Test
         public int HP;
         public Tile standingOn { get; set; }
         public String interactText { get; set; }
+        public String holdingItem { get; set; }
         private int count = -1;
 
         public List<Items> Inventory = new List<Items>();
+        public List<Items> Tools = new List<Items>();
 
         public Player()
         {
             this.Icon = _icon;
             this.Colour = _colour;
             this.standingOn = null;
+            this.holdingItem = "No Tool";
             HP = 10;
         }
 
@@ -71,6 +74,11 @@ namespace OOP_Board_Test
                 case ConsoleKey.I: //Inventory
                     displayInventory = true; 
                     break;
+                case ConsoleKey.Q:
+                    this.holdingItem = Tools.First().Name;
+                    Tools.Reverse();
+                    this.interactText = "You switch to your Pickaxe";
+                    break;
 
             }
         }
@@ -109,10 +117,10 @@ namespace OOP_Board_Test
                     var casted_item = (Crafted_Item)recipes[count]; //Cast item to become crafted_item
                     if (crafting.checkIfCraftable(Inventory, casted_item))  //If user has required items to craft add to inventory
                     {
-                        //Add Item to inventory and remove indicator
+                        //Add Item to tool inventory and remove indicator
                         String item = recipes[count].Name.Remove(0, 1);
                         Crafted_Item item_obj = new(item);
-                        Inventory.Add(item_obj);
+                        Tools.Add(item_obj);
                         //Set error text for to success
                         cui.eventText = $"{item} crafted.";
                         cui.eventColour= ConsoleColor.Green;
@@ -151,24 +159,45 @@ namespace OOP_Board_Test
         public void Interact()
         {
             Dirt dirt_tile = new Dirt(this.Row, this.Col);
-
+            Items item_gathered; 
 
             if (this.standingOn.Name == "Iron")
             {
-                //When Iron is mined, will be changed to DIRT tile.
-                this.standingOn = dirt_tile;
-                brd.changeOldTile(this); //Changes Tile to a specified tile (Default is Dirt)
-                //Add Item to Inventory
-                Iron_Ore iron = new Iron_Ore();
-                this.interactText = iron.interact_text;
-                Inventory.Add(iron);
-            } else if (this.standingOn.Name == "Stick")
+                if(this.holdingItem == "Pickaxe")
+                {
+                    //Update what tile you are standing on
+                    this.standingOn = dirt_tile;
+                    brd.changeOldTile(this); //Changes Tile to a specified tile (Default is Dirt)
+                    item_gathered = new Iron_Ore();
+                    this.interactText = item_gathered.interact_text;
+                    Inventory.Add(item_gathered); //Add Item to Inventory
+
+                } else
+                {
+                    this.interactText = "You need to equip a Pick";
+                }
+            } 
+            else if (this.standingOn.Name == "Stick")
             {
                 this.standingOn = dirt_tile;
                 brd.changeOldTile(this);
-                Item_Stick stick = new Item_Stick();
-                this.interactText = stick.interact_text;
-                Inventory.Add(stick);
+                item_gathered = new Item_Stick();
+                this.interactText = item_gathered.interact_text;
+                Inventory.Add(item_gathered);
+            }
+            else if (this.standingOn.Name == "Tree")
+            {
+                if (this.holdingItem == "Axe")
+                {
+                    this.standingOn = dirt_tile;
+                    brd.changeOldTile(this);
+                    item_gathered = new Item_Wood();
+                    this.interactText = item_gathered.interact_text;
+                    Inventory.Add(item_gathered);
+                } else
+                {
+                    this.interactText = "You need to equip an Axe";
+                }
             }
             else
             {

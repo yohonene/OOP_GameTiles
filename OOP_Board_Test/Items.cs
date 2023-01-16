@@ -33,17 +33,23 @@ namespace OOP_Board_Test
     public class Iron_Ore : Items
     {
         private String _name = "Iron";
-        public String interact_text;
         public Iron_Ore() { Name = _name; interact_text = "You mine Iron"; }
     }
 
     public class Item_Stick : Items
     {
         private String _name = "Stick";
-        public String interact_text;
 
         public Item_Stick() { Name = _name; interact_text = "You pickup a stick";  }
     }
+
+    public class Item_Wood : Items
+    {
+        private String _name = "Wood";
+
+        public Item_Wood() { Name = _name; interact_text = "You chop wood"; }
+    }
+
 
     public class Crafted_Item : Items
     {
