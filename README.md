@@ -8,3 +8,5 @@ Press Q to switch tools when crafted
 
 Pickaxe - 3 sticks
 Axe - Lots of Iron
+
+![inline](https://github.com/yohonene/OOP_GameTiles/blob/master/VsDebugConsole_mdWZlBhSkP.gif) "Gameplay"
